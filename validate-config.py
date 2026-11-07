@@ -23,7 +23,10 @@ def validate(path):
     require(image is not None, "Image must be a GHCR localpoast image pinned to a real SHA256 digest.")
     require(image.group(2) != "0" * 64, "An all-zero image digest is not a build result.")
     env = {}
+    require(app["env"].count("DOMAIN") == 1, "Pass Tinfoil's injected DOMAIN through by name.")
     for entry in app["env"]:
+        if entry == "DOMAIN":
+            continue
         require(isinstance(entry, dict) and len(entry) == 1, "Use explicit measured environment settings.")
         env.update(entry)
     repo = env.get("TINFOIL_CONFIG_REPO", "")

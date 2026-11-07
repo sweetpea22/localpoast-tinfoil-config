@@ -34,6 +34,7 @@ containers:
         export PUBLIC_ORIGIN="https://$DOMAIN"
         exec ./node_modules/.bin/tsx src/server/index.ts
     env:
+      - DOMAIN
       - NODE_ENV: "production"
       - PORT: "3001"
       - ANALYSIS_PROVIDER: "tinfoil"
