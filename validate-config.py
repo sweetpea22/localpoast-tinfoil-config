@@ -13,7 +13,8 @@ def validate(path):
     # Comments may describe replacement markers; values may not retain them.
     data = yaml.safe_load(raw)
     require("REPLACE_" not in str(data), "Resolve every REPLACE_ value before release.")
-    require(data["cvm-version"] == "0.14.7", "Review a CVM version change against current official docs.")
+    # 0.14.9 includes private-registry auth fix tinfoilsh/cvmimage#372.
+    require(data["cvm-version"] == "0.14.9", "Review a CVM version change against current official docs.")
     require(data["cpus"] == 2 and data["memory"] == 8192, "Candidate expects 2 CPUs and 8192 MB.")
     require(not data.get("gpus") and not data.get("volumes"), "This candidate has no GPU or persistent disk.")
     require(len(data["containers"]) == 1, "Review additional workloads separately.")
